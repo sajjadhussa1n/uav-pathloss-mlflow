@@ -27,17 +27,17 @@ def main():
     test_split = config["test_split"]
 
     # Globals
-    GLOBAL_MINS = config["globals"]["mins"]
-    GLOBAL_MAXS = config["globals"]["maxs"]
+    GLOBAL_MINS = config["mins"]
+    GLOBAL_MAXS = config["maxs"]
 
     # Training config
-    epochs = config["training"]["epochs"]
-    lr = config["training"]["learning_rate"]
-    batch_size = config["training"]["batch_size"]
-    save_path = config["training"]["save_weights_path"]
+    epochs = config["epochs"]
+    lr = config["learning_rate"]
+    batch_size = config["batch_size"]
+    save_path = config["save_weights_path"]
 
     # Model config
-    input_shape = tuple(config["model"]["input_shape"])
+    input_shape = tuple(config["input_shape"])
 
     # -------------------------
     # Prepare directories
