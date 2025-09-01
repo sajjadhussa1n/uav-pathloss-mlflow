@@ -2,7 +2,7 @@ experiment_name: "uav_pathloss_experiments"
 run_name: "msff-unet-baseline"
 
 
-dataset:
+#dataset:
 hf_repo: "SHussain37/uav_pathloss_dataset" # Hugging Face dataset repo
 local_cache_dir: "./data_cache" # will be created automatically
 width: 384
