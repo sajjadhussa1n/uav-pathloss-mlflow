@@ -50,13 +50,20 @@ def main():
     # -------------------------
     print("Loading UAV Pathloss dataset from Hugging Face...")
     dataset = load_dataset(hf_repo, cache_dir=cache_dir)
+    # HuggingFace `load_dataset` returns dict-like object: {"train": Dataset, "test": Dataset}
+    # But since we already structured as CSV folders, we'll just fetch the local files
+    repo_path = dataset.cache_files[0]['filename']
+    repo_dir = os.path.dirname(repo_path)
+
+    # Local path inside cache dir
+    local_dir = os.path.join(cache_dir, hf_repo.split("/")[-1])
 
     train_dataset = UAVChannelDataset(
-        dataset[train_split], GLOBAL_MINS, GLOBAL_MAXS, training=True
+        local_dir, GLOBAL_MINS, GLOBAL_MAXS, training=True
     ).get_dataset(batch_size=batch_size)
 
     val_dataset = UAVChannelDataset(
-        dataset[test_split], GLOBAL_MINS, GLOBAL_MAXS, training=False
+        local_dir, GLOBAL_MINS, GLOBAL_MAXS, training=False
     ).get_dataset(batch_size=batch_size)
 
     # -------------------------
