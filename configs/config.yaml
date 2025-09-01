@@ -13,8 +13,8 @@ test_split: "test"
 
 
 globals: # replace with your actual global stats
-mins: [0.0, 0.0, 0.0, 50.0] # [DIST3D, LOS, IS_BUILDING, PATH_LOSS]
-maxs: [1000.0, 1.0, 1.0, 200.0]
+mins: [27.421811927850868, 0.0, 0.0, 88.81941301037052] # [20log(DIST3D), LOS, IS_BUILDING, PATH_LOSS]
+maxs: [63.60497276934571, 1.0, 1.0, 189.1539679610673]
 
 
 training:
