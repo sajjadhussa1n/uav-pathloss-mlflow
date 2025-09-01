@@ -88,8 +88,8 @@ class RadioTrainer:
     def train(self, train_dataset, val_dataset, epochs, save_path):
             best_val_loss = float('inf')
             with mlflow.start_run():
-            mlflow.log_param("epochs", epochs)
-            mlflow.log_param("learning_rate", self.optimizer.lr.numpy())
+                mlflow.log_param("epochs", epochs)
+                mlflow.log_param("learning_rate", self.optimizer.lr.numpy())
 
                 for epoch in range(epochs):
                     start_time = time.time()
