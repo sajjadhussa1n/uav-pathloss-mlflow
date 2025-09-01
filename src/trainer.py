@@ -100,16 +100,7 @@ class RadioTrainer:
                     batch_count = 0
                     for inputs, targets in train_dataset:
                         self.train_step(inputs, targets)
-                        batch_count += 1
-    
-                        # Print progress
-                        # You might need to estimate the total number of batches
-                        # or use a tqdm progress bar for better visualization.
-                        # For simplicity, let's print every 10 batches or at the end of an epoch.
-                        #if batch_count % 10 == 0:
-                        #    print(f"Epoch {epoch+1}/{epochs} | Batch {batch_count} | "
-                        #          f"Train Loss: {self.train_loss.result():.4f}")
-    
+                        batch_count += 1    
     
                     # Validation loop - Iterate directly over the dataset
                     val_batch_count = 0
