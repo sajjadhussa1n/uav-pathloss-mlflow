@@ -7,7 +7,6 @@ from datasets import load_dataset
 from src.model import build_novel_unet
 from src.trainer import RadioTrainer
 from src.dataset import UAVChannelDataset
-from src.constants import GLOBAL_MIN_PATH_LOSS, GLOBAL_MAX_PATH_LOSS
 
 
 def main():
