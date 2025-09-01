@@ -1,0 +1,28 @@
+experiment_name: "uav_pathloss_experiments"
+run_name: "msff-unet-baseline"
+
+
+dataset:
+hf_repo: "SHussain37/uav_pathloss_dataset" # Hugging Face dataset repo
+local_cache_dir: "./data_cache" # will be created automatically
+width: 384
+height: 256
+patch: 128
+train_split: "train"
+test_split: "test"
+
+
+globals: # replace with your actual global stats
+mins: [0.0, 0.0, 0.0, 50.0] # [DIST3D, LOS, IS_BUILDING, PATH_LOSS]
+maxs: [1000.0, 1.0, 1.0, 200.0]
+
+
+training:
+epochs: 30
+learning_rate: 1.0e-4
+batch_size: 16
+save_weights_path: "artifacts/best_unet.weights.h5"
+
+
+model:
+input_shape: [128, 128, 3]
