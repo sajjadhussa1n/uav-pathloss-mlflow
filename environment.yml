@@ -1,0 +1,17 @@
+name: uav-pathloss-unet
+channels:
+- conda-forge
+- defaults
+dependencies:
+- python=3.10
+- pip
+- pip:
+- tensorflow==2.16.1
+- mlflow>=2.12.0
+- huggingface_hub>=0.23.0
+- datasets>=2.20.0
+- numpy
+- pandas
+- pyyaml
+- tqdm
+- matplotlib
