@@ -21,10 +21,10 @@ def main():
     run_name = config.get("run_name", "default-run")
 
     # Dataset config
-    hf_repo = config["dataset"]["hf_repo"]
-    cache_dir = config["dataset"]["local_cache_dir"]
-    train_split = config["dataset"]["train_split"]
-    test_split = config["dataset"]["test_split"]
+    hf_repo = config["hf_repo"]
+    cache_dir = config["local_cache_dir"]
+    train_split = config["train_split"]
+    test_split = config["test_split"]
 
     # Globals
     GLOBAL_MINS = config["globals"]["mins"]
