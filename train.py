@@ -4,7 +4,7 @@ import mlflow
 import mlflow.tensorflow
 from datasets import load_dataset
 
-from src.model import build_unet
+from src.model import build_novel_unet
 from src.trainer import RadioTrainer
 from src.dataset import UAVChannelDataset
 from src.constants import GLOBAL_MIN_PATH_LOSS, GLOBAL_MAX_PATH_LOSS
@@ -64,7 +64,7 @@ def main():
     # Build model
     # -------------------------
     print("Building UNet model...")
-    model = build_unet(input_shape=input_shape, num_classes=1)
+    model = build_novel_unet(input_shape=input_shape)
 
     # -------------------------
     # Trainer
