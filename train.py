@@ -37,6 +37,7 @@ def main():
     lr = config["learning_rate"]
     batch_size = config["batch_size"]
     save_path = config["save_weights_path"]
+    pretrained_path = config["pretrained_weights_path"]
 
     # Model config
     input_shape = tuple(config["input_shape"])
