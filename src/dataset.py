@@ -10,6 +10,7 @@ class UAVChannelDataset:
         if directory is None:
             root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
             directory = os.path.join(root_dir, "dataset")
+        self.directory = directory
         self.train_directory = os.path.join(directory, 'train')
         self.train_files = [file for file in os.listdir(self.train_directory)]
         self.test_directory = os.path.join(directory, 'test')
@@ -21,6 +22,7 @@ class UAVChannelDataset:
 
     def _create_3_channel_input(self):
         files = self.train_files if self.training else self.test_files
+        the_directory = self.train_directory if self.training else self.test_directory
         input_channels_data = []
         output_channel_data = []
 
@@ -29,7 +31,7 @@ class UAVChannelDataset:
 
             total_images = 100
             operations = [np.flipud, np.fliplr]
-            file_path = os.path.join(self.directory, file)
+            file_path = os.path.join(the_directory, file)
             data = pd.read_csv(file_path)
 
             # Create 3-channel input and target array
