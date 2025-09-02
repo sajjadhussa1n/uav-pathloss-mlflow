@@ -56,7 +56,7 @@ def main():
     train_dataset = train_dataset.shuffle(buffer_size=len(train_dataset)).prefetch(tf.data.AUTOTUNE)
     print("Training dataset size: ", len(train_dataset))
 
-    val_dataset = UAVChannelDataset(global_mins = GLOBAL_MINS, global_maxs = GLOBAL_MAXS, training=True).get_dataset()
+    val_dataset = UAVChannelDataset(global_mins = GLOBAL_MINS, global_maxs = GLOBAL_MAXS, training=False).get_dataset()
     val_dataset = val_dataset.batch(batch_size, drop_remainder=True)
     val_dataset = val_dataset.shuffle(buffer_size=len(val_dataset)).prefetch(tf.data.AUTOTUNE)
     print("Test dataset size: ", len(val_dataset))
