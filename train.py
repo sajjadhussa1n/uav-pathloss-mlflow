@@ -85,7 +85,7 @@ def main():
         })
 
         print("Starting training...")
-        trainer.train(train_dataset, val_dataset, epochs=epochs, save_path=save_path)
+        #trainer.train(train_dataset, val_dataset, epochs=epochs, save_path=save_path)
 
         print(f"Training completed. Best model saved at: {save_path}")
         
