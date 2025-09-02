@@ -129,6 +129,7 @@ class UAVChannelDataset:
 
         input_channels_data = np.array(input_channels_data, dtype=np.float32)
         output_channel_data = np.expand_dims(np.array(output_channel_data, dtype=np.float32), axis=-1)
+        print("Total number of 128x128 samples in dataset: ", input_channels_data.shape[0])
         return input_channels_data, output_channel_data
 
     def get_dataset(self):
