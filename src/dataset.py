@@ -2,6 +2,8 @@ import os, random
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+random.seed(42)
+np.random.seed(42)
 
 class UAVChannelDataset:
     def __init__(self, global_mins, global_maxs, directory = None, feature_cols=['Distance_3d', 'LOS_mask', 'Is_building'], target_col='Path_loss', training=True):
