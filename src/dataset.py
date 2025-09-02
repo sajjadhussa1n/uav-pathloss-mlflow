@@ -4,9 +4,12 @@ import pandas as pd
 import tensorflow as tf
 
 class UAVChannelDataset:
-    def __init__(self, directory,global_mins, global_maxs, feature_cols=['Distance_3d', 'LOS_mask', 'Is_building'], target_col='Path_loss', training=True):
+    def __init__(self, global_mins, global_maxs, directory = None, feature_cols=['Distance_3d', 'LOS_mask', 'Is_building'], target_col='Path_loss', training=True):
         self.training = training
-        self.debugging = True
+        # Default directory is ./dataset in project root
+        if directory is None:
+            root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+            directory = os.path.join(root_dir, "dataset")
         self.train_directory = os.path.join(directory, 'train')
         self.train_files = [file for file in os.listdir(self.train_directory)]
         self.test_directory = os.path.join(directory, 'test')
