@@ -87,9 +87,9 @@ class RadioTrainer:
 
     def train(self, train_dataset, val_dataset, epochs, save_path):
             best_val_loss = float('inf')
-            with mlflow.start_run():
-                mlflow.log_param("epochs", epochs)
-                mlflow.log_param("learning_rate", self.optimizer.lr.numpy())
+            #with mlflow.start_run():
+                #mlflow.log_param("epochs", epochs)
+                #mlflow.log_param("learning_rate", self.optimizer.lr.numpy())
 
                 for epoch in range(epochs):
                     start_time = time.time()
@@ -109,9 +109,9 @@ class RadioTrainer:
                         val_batch_count += 1
 
                     # log metrics
-                    mlflow.log_metric("train_loss", float(self.train_loss.result()), step=epoch)
-                    mlflow.log_metric("val_loss", float(self.val_loss.result()), step=epoch)
-                    mlflow.log_metric("val_rmse", float(self.val_rmse.result()), step=epoch)
+                    #mlflow.log_metric("train_loss", float(self.train_loss.result()), step=epoch)
+                    #mlflow.log_metric("val_loss", float(self.val_loss.result()), step=epoch)
+                    #mlflow.log_metric("val_rmse", float(self.val_rmse.result()), step=epoch)
     
     
                     # Print epoch summary
@@ -133,5 +133,5 @@ class RadioTrainer:
                         self.model.save_weights(save_path)
                         print(f"Saved best model with val loss: {best_val_loss:.6f}")
                 # Reload best weights before logging final model
-                self.model.load_weights(save_path)
-                mlflow.tensorflow.log_model(self.model, artifact_path="model")
+                #self.model.load_weights(save_path)
+                #mlflow.tensorflow.log_model(self.model, artifact_path="model")
