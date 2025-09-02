@@ -90,7 +90,7 @@ def main():
 
         print(f"Training completed. Best model saved at: {save_path}")
         
-        model.load_weights(save_path)
+        model.load_weights(pretrained_path)
         evaluator = Evaluator(model=model, global_mins=GLOBAL_MINS, global_maxs=GLOBAL_MAXS)
         print("Starting Evaluating trained model...")
         evaluator.evaluate()
