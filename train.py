@@ -34,25 +34,18 @@ def main():
     input_shape = tuple(config["input_shape"])
 
     # -------------------------
-    # Prepare directories
-    # -------------------------
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    os.makedirs(cache_dir, exist_ok=True)
-
-    # -------------------------
-    # Load dataset
-    # -------------------------
-        
+    # Prepare datasets
+    # -------------------------       
     
     train_dataset = UAVChannelDataset(global_mins = GLOBAL_MINS, global_maxs = GLOBAL_MAXS, training=True).get_dataset()
-    train_dataset = train_dataset.batch(batch_size, drop_remainder=True)
-    train_dataset = train_dataset.shuffle(buffer_size=len(train_dataset)).prefetch(tf.data.AUTOTUNE)
     print("Training dataset size: ", len(train_dataset))
+    train_dataset = train_dataset.batch(batch_size, drop_remainder=True)
+    train_dataset = train_dataset.shuffle(buffer_size=13500).prefetch(tf.data.AUTOTUNE)
 
     val_dataset = UAVChannelDataset(global_mins = GLOBAL_MINS, global_maxs = GLOBAL_MAXS, training=False).get_dataset()
-    val_dataset = val_dataset.batch(batch_size, drop_remainder=True)
-    val_dataset = val_dataset.shuffle(buffer_size=len(val_dataset)).prefetch(tf.data.AUTOTUNE)
     print("Test dataset size: ", len(val_dataset))
+    val_dataset = val_dataset.batch(batch_size, drop_remainder=True)
+    val_dataset = val_dataset.shuffle(buffer_size=270).prefetch(tf.data.AUTOTUNE)
 
     # -------------------------
     # Build model
@@ -66,24 +59,19 @@ def main():
     trainer = RadioTrainer(model, lr=lr)
 
     # -------------------------
-    # Train under MLflow
+    # Train and Evaluate under MLflow
     # -------------------------
     with mlflow.start_run(run_name=run_name):
-        mlflow.log_params({
-            "epochs": epochs,
-            "learning_rate": lr,
-            "batch_size": batch_size,
-            "input_shape": input_shape,
-        })
+        mlflow.tensorflow.autolog()
 
         print("Starting training...")
-        #trainer.train(train_dataset, val_dataset, epochs=epochs, save_path=save_path)
+        trainer.train(train_dataset, val_dataset, epochs=epochs, save_path=save_path)
 
         print(f"Training completed. Best model saved at: {save_path}")
         
-        model.load_weights(pretrained_path)
+        model.load_weights(pretrained_path) # loading pre-trained weights. change to save_path to load custom trained weights
         evaluator = Evaluator(model=model, global_mins=GLOBAL_MINS, global_maxs=GLOBAL_MAXS)
-        print("Starting Evaluating trained model...")
+        print("Starting Evaluating the trained model...")
         evaluator.evaluate()
 
 
