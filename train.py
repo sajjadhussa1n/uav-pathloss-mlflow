@@ -3,6 +3,7 @@ import yaml
 import mlflow
 import mlflow.tensorflow
 from datasets import load_dataset
+import tensorflow as tf
 
 from src.model import build_novel_unet
 from src.trainer import RadioTrainer
@@ -48,23 +49,17 @@ def main():
     # -------------------------
     # Load dataset
     # -------------------------
-    print("Loading UAV Pathloss dataset from Hugging Face...")
-    dataset = load_dataset(hf_repo, cache_dir=cache_dir)
-    # HuggingFace `load_dataset` returns dict-like object: {"train": Dataset, "test": Dataset}
-    # But since we already structured as CSV folders, we'll just fetch the local files
-    repo_path = dataset.cache_files[0]['filename']
-    repo_dir = os.path.dirname(repo_path)
+        
+    
+    train_dataset = UAVChannelDataset(global_mins = GLOBAL_MINS, global_maxs = GLOBAL_MAXS, training=True).get_dataset()
+    train_dataset = train_dataset.batch(batch_size, drop_remainder=True)
+    train_dataset = train_dataset.shuffle(buffer_size=len(train_dataset)).prefetch(tf.data.AUTOTUNE)
+    print("Training dataset size: ", len(train_dataset))
 
-    # Local path inside cache dir
-    local_dir = os.path.join(cache_dir, hf_repo.split("/")[-1])
-
-    train_dataset = UAVChannelDataset(
-        local_dir, GLOBAL_MINS, GLOBAL_MAXS, training=True
-    ).get_dataset(batch_size=batch_size)
-
-    val_dataset = UAVChannelDataset(
-        local_dir, GLOBAL_MINS, GLOBAL_MAXS, training=False
-    ).get_dataset(batch_size=batch_size)
+    val_dataset = UAVChannelDataset(global_mins = GLOBAL_MINS, global_maxs = GLOBAL_MAXS, training=True).get_dataset()
+    val_dataset = val_dataset.batch(batch_size, drop_remainder=True)
+    val_dataset = val_dataset.shuffle(buffer_size=len(val_dataset)).prefetch(tf.data.AUTOTUNE)
+    print("Test dataset size: ", len(val_dataset))
 
     # -------------------------
     # Build model
