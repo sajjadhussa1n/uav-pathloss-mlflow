@@ -2,6 +2,8 @@ import mlflow
 import mlflow.tensorflow
 import time
 import tensorflow as tf
+from constants import GLOBAL_MIN_PATH_LOSS, GLOBAL_MAX_PATH_LOSS, GLOBAL_MIN_LOG_3D_DISTANCE, GLOBAL_MAX_LOG_3D_DISTANCE, GLOBAL_MIN_IS_BUILDING, GLOBAL_MAX_IS_BUILDING, GLOBAL_MIN_LOS_MASK, GLOBAL_MAX_LOS_MASK
+
 
 class RadioTrainer:
     def __init__(self, model, lr=1e-4):
@@ -91,47 +93,47 @@ class RadioTrainer:
                 #mlflow.log_param("epochs", epochs)
                 #mlflow.log_param("learning_rate", self.optimizer.lr.numpy())
 
-                for epoch in range(epochs):
-                    start_time = time.time()
-                    self.reset_metrics()
-    
-                    print(f"Starting Epoch {epoch+1}/{epochs}")
-                    # Training loop - Iterate directly over the dataset
-                    batch_count = 0
-                    for inputs, targets in train_dataset:
-                        self.train_step(inputs, targets)
-                        batch_count += 1    
-    
-                    # Validation loop - Iterate directly over the dataset
-                    val_batch_count = 0
-                    for inputs, targets in val_dataset:
-                        self.val_step(inputs, targets)
-                        val_batch_count += 1
+            for epoch in range(epochs):
+                start_time = time.time()
+                self.reset_metrics()
 
-                    # log metrics
-                    #mlflow.log_metric("train_loss", float(self.train_loss.result()), step=epoch)
-                    #mlflow.log_metric("val_loss", float(self.val_loss.result()), step=epoch)
-                    #mlflow.log_metric("val_rmse", float(self.val_rmse.result()), step=epoch)
-    
-    
-                    # Print epoch summary
-                    epoch_time = time.time() - start_time
-                    print(f"\nEpoch {epoch+1}/{epochs} - {epoch_time:.1f}s")
-                    print(f"Train: Loss: {self.train_loss.result():.6f} | "
-                          f"RMSE: {self.train_rmse.result():.6f} | "
-                          f"NMSE: {self.train_nmse.result():.6f} | "
-                          f"MAE: {self.train_mae.result():.6f}")
-                    print(f"Val:   Loss: {self.val_loss.result():.6f} | "
-                          f"RMSE: {self.val_rmse.result():.6f} | "
-                          f"NMSE: {self.val_nmse.result():.6f} | "
-                          f"MAE: {self.val_mae.result():.6f}")
-    
-                    # Save best model
-                    if self.val_loss.result() < best_val_loss:
-                        best_val_loss = self.val_loss.result()
-                        # Assuming your model is a Keras Model instance
-                        self.model.save_weights(save_path)
-                        print(f"Saved best model with val loss: {best_val_loss:.6f}")
-                # Reload best weights before logging final model
+                print(f"Starting Epoch {epoch+1}/{epochs}")
+                # Training loop - Iterate directly over the dataset
+                batch_count = 0
+                for inputs, targets in train_dataset:
+                    self.train_step(inputs, targets)
+                    batch_count += 1    
+
+                # Validation loop - Iterate directly over the dataset
+                val_batch_count = 0
+                for inputs, targets in val_dataset:
+                    self.val_step(inputs, targets)
+                    val_batch_count += 1
+
+                # log metrics
+                #mlflow.log_metric("train_loss", float(self.train_loss.result()), step=epoch)
+                #mlflow.log_metric("val_loss", float(self.val_loss.result()), step=epoch)
+                #mlflow.log_metric("val_rmse", float(self.val_rmse.result()), step=epoch)
+
+
+                # Print epoch summary
+                epoch_time = time.time() - start_time
+                print(f"\nEpoch {epoch+1}/{epochs} - {epoch_time:.1f}s")
+                print(f"Train: Loss: {self.train_loss.result():.6f} | "
+                      f"RMSE: {self.train_rmse.result():.6f} | "
+                      f"NMSE: {self.train_nmse.result():.6f} | "
+                      f"MAE: {self.train_mae.result():.6f}")
+                print(f"Val:   Loss: {self.val_loss.result():.6f} | "
+                      f"RMSE: {self.val_rmse.result():.6f} | "
+                      f"NMSE: {self.val_nmse.result():.6f} | "
+                      f"MAE: {self.val_mae.result():.6f}")
+
+                # Save best model
+                if self.val_loss.result() < best_val_loss:
+                    best_val_loss = self.val_loss.result()
+                    # Assuming your model is a Keras Model instance
+                    self.model.save_weights(save_path)
+                    print(f"Saved best model with val loss: {best_val_loss:.6f}")
+            # Reload best weights before logging final model
                 #self.model.load_weights(save_path)
                 #mlflow.tensorflow.log_model(self.model, artifact_path="model")
