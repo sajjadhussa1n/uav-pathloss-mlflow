@@ -18,7 +18,7 @@ maxs: [63.60497276934571, 1.0, 1.0, 189.1539679610673]
 
 
 #training:
-epochs: 30
+epochs: 1
 learning_rate: 1.0e-4
 batch_size: 16
 save_weights_path: "artifacts/best_unet.weights.h5"
