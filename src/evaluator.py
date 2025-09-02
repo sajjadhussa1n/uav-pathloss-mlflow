@@ -6,6 +6,9 @@ import pandas as pd
 import mlflow
 import mlflow.tensorflow
 import tensorflow as tf
+import random
+random.seed(42)
+np.random.seed(42)
 
 # -------------------------
 # Helper functions
@@ -77,22 +80,17 @@ def aggregate_predictions(full_grid_shape, predictions, chunk_info):
 # -------------------------
 
 class Evaluator:
-    def __init__(self, run_id, global_mins, global_maxs, ny=384, nx=256):
+    def __init__(self, model, global_mins, global_maxs, directory = None, ny=384, nx=256):
         """
-        run_id: MLflow run ID where the best model was logged
         global_mins/maxs: list of min/max for normalization
         """
-        self.run_id = run_id
+        self.model = model
+        self.directory = directory
         self.global_mins = global_mins
         self.global_maxs = global_maxs
         self.ny, self.nx = ny, nx
 
-        # Load model from MLflow
-        model_uri = f"runs:/{run_id}/model"
-        print(f"Loading best model from {model_uri}")
-        self.model = mlflow.tensorflow.load_model(model_uri)
-
-    def evaluate(self, test_dir, metrics_fn):
+    def evaluate(self, metrics_fn):
         """
         test_dir: directory containing test CSVs
         metrics_fn: dict of { "rmse": func, "mae": func, "nmse": func }
@@ -100,10 +98,10 @@ class Evaluator:
         RMSE, MAE, NMSE = [], [], []
         PL_actual, PL_pred = [], []
 
-        files = [f for f in os.listdir(test_dir) if f.endswith(".csv")]
+        files = [f for f in os.listdir(self.directory) if f.endswith(".csv")]
 
         for fname in files:
-            df = pd.read_csv(os.path.join(test_dir, fname))
+            df = pd.read_csv(os.path.join(self.directory, fname))
 
             # Normalize input
             dist = df['Distance_3d'].values.reshape(self.ny, self.nx)
