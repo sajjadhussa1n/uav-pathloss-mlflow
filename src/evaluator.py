@@ -114,7 +114,7 @@ class Evaluator:
         self.global_maxs = global_maxs
         self.ny, self.nx = ny, nx
 
-    def evaluate(self, metrics_fn):
+    def evaluate(self):
         """
         test_dir: directory containing test CSVs
         metrics_fn: dict of { "rmse": func, "mae": func, "nmse": func }
