@@ -2,8 +2,7 @@ import mlflow
 import mlflow.tensorflow
 import time
 import tensorflow as tf
-from src.constants import GLOBAL_MIN_PATH_LOSS, GLOBAL_MAX_PATH_LOSS, GLOBAL_MIN_LOG_3D_DISTANCE, GLOBAL_MAX_LOG_3D_DISTANCE, GLOBAL_MIN_IS_BUILDING, GLOBAL_MAX_IS_BUILDING, GLOBAL_MIN_LOS_MASK, GLOBAL_MAX_LOS_MASK
-
+from src.constants import GLOBAL_MIN_PATH_LOSS, GLOBAL_MAX_PATH_LOSS
 
 class RadioTrainer:
     def __init__(self, model, lr=1e-4):
