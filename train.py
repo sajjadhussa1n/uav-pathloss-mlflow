@@ -9,6 +9,7 @@ from src.model import build_novel_unet
 from src.trainer import RadioTrainer
 from src.dataset import UAVChannelDataset
 from src.evaluator import Evaluator
+from src.constants import GLOBAL_MINS, GLOBAL_MAXS
 
 
 def main():
@@ -22,22 +23,12 @@ def main():
     mlflow.set_experiment(config["experiment_name"])
     run_name = config.get("run_name", "default-run")
 
-    # Dataset config
-    hf_repo = config["hf_repo"]
-    cache_dir = config["local_cache_dir"]
-    train_split = config["train_split"]
-    test_split = config["test_split"]
-
-    # Globals
-    GLOBAL_MINS = config["mins"]
-    GLOBAL_MAXS = config["maxs"]
-
     # Training config
     epochs = config["epochs"]
     lr = config["learning_rate"]
     batch_size = config["batch_size"]
-    save_path = config["save_weights_path"]
-    pretrained_path = config["pretrained_weights_path"]
+    save_path = config["save_weights_path"]                # default save path
+    pretrained_path = config["pretrained_weights_path"]    # pre-trained model weights
 
     # Model config
     input_shape = tuple(config["input_shape"])
