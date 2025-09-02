@@ -87,6 +87,12 @@ def main():
         trainer.train(train_dataset, val_dataset, epochs=epochs, save_path=save_path)
 
         print(f"Training completed. Best model saved at: {save_path}")
+        
+        evaluator = Evaluator(model=model, global_mins=GLOBAL_MINS, global_maxs=GLOBAL_MAXS)
+        print("Starting Evaluating trained model...")
+        evaluator.evaluate()
+
+
 
 
 if __name__ == "__main__":
