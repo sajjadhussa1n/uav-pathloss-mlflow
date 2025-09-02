@@ -8,6 +8,7 @@ import tensorflow as tf
 from src.model import build_novel_unet
 from src.trainer import RadioTrainer
 from src.dataset import UAVChannelDataset
+from src.evaluator import Evaluator
 
 
 def main():
