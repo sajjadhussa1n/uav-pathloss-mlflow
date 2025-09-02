@@ -6,6 +6,7 @@ import pandas as pd
 import mlflow
 import mlflow.tensorflow
 import tensorflow as tf
+from src.constants import GLOBAL_MAX_PATH_LOSS, GLOBAL_MIN_PATH_LOSS
 import random
 random.seed(42)
 np.random.seed(42)
@@ -74,6 +75,26 @@ def aggregate_predictions(full_grid_shape, predictions, chunk_info):
     count_grid[count_grid == 0] = 1
     return sum_grid / count_grid
 
+def denormalize(y):
+    return y * (GLOBAL_MAX_PATH_LOSS - GLOBAL_MIN_PATH_LOSS) + GLOBAL_MIN_PATH_LOSS
+
+def my_custom_nmse(y_true, y_pred):
+    y_true_pl = denormalize(y_true)
+    y_pred_pl = denormalize(y_pred)
+    return tf.reduce_mean(tf.square(y_true_pl - y_pred_pl)) / tf.reduce_mean(tf.square(y_true_pl))
+
+def my_custom_mae(y_true, y_pred):
+  y_true_pl = denormalize(y_true)
+  y_pred_pl = denormalize(y_pred)
+  diff = tf.abs(y_true_pl - y_pred_pl)
+  mae = tf.reduce_mean(diff)
+  return mae
+
+def my_custom_rmse(y_true, y_pred):
+    y_true_pl = denormalize(y_true)
+    y_pred_pl = denormalize(y_pred)
+    return tf.sqrt(tf.reduce_mean(tf.square(y_true_pl - y_pred_pl)))
+
 
 # -------------------------
 # Evaluator class
@@ -84,8 +105,11 @@ class Evaluator:
         """
         global_mins/maxs: list of min/max for normalization
         """
-        self.model = model
+        if directory is None:
+            root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+            directory = os.path.join(root_dir, "dataset/test")
         self.directory = directory
+        self.model = model
         self.global_mins = global_mins
         self.global_maxs = global_maxs
         self.ny, self.nx = ny, nx
@@ -119,10 +143,14 @@ class Evaluator:
             predictions = self.model.predict(chunks)
             final_pred = aggregate_predictions(full_grid.shape, predictions, chunk_info)
 
+            rmse_loss = my_custom_rmse(pl_norm, final_pred)
+            mae_loss = my_custom_mae(pl_norm, final_pred)
+            nmse_loss = my_custom_nmse(pl_norm, final_pred)
+
             # Compute metrics
-            RMSE.append(metrics_fn["rmse"](pl_norm, final_pred))
-            MAE.append(metrics_fn["mae"](pl_norm, final_pred))
-            NMSE.append(metrics_fn["nmse"](pl_norm, final_pred))
+            RMSE.append(rmse_loss)
+            MAE.append(mae_loss)
+            NMSE.append(nmse_loss)
 
             # Denormalize prediction for saving
             final_pred = final_pred * (self.global_maxs[3] - self.global_mins[3]) + self.global_mins[3]
