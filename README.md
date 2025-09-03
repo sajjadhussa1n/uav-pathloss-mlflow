@@ -40,9 +40,87 @@ You can run the pipeline either:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/sajjadhussa1n/uav-pathloss-mlflow.git
-cd uav-pathloss-mlflow
+!git clone https://github.com/sajjadhussa1n/uav-pathloss-mlflow.git
+%cd uav-pathloss-mlflow
 ```
 ### 2. Download Dataset and Pre-trained Weights
 
-We use gdown to fetch public Google Drive folders.
+The dataset used in this research and the best model weights are publicly available on Google Drive. We use gdown to fetch public Google Drive folders.
+
+```bash
+!pip install gdown
+```
+
+Download the dataset in the **./dataset** directory. It is also recommended to download the dataset manually from this link in case the following bash commands to automatically download it fail. 
+
+```bash
+# Dataset Folder ID
+folder_id="1ooH4jxP_qk3OriNYzt8vPr-waYiR6qy0"
+target_dir="./dataset"
+
+# Download all dataset files
+!gdown --folder https://drive.google.com/drive/folders/$folder_id -O $target_dir
+```
+
+Download the pre-trained model weights in the **./artifacts** directory. Again, you can manually download the pre-trained model weights from this link here.
+
+```bash
+# Pretrained weights Folder ID
+folder_id="1g7PgvSqooMttOzmRsplTDocRMLeKdOZS"
+target_dir="./artifacts"
+
+# Download pretrained weights
+!gdown --folder https://drive.google.com/drive/folders/$folder_id -O $target_dir
+```
+
+### 3. Install Dependencies
+
+```bash
+!pip install -r requirements.txt
+```
+
+If Colab asks to restart the runtime after install, please restart and make sure you are in the root directory.
+
+```bash
+%cd uav-pathloss-mlflow
+```
+
+### 4. Run Training and Evaluation
+
+```bash
+!python main.py
+```
+This script will automatically create the model instance, prepare train and test datasets, train the model, and evaluate it. The results will be reported in the CLI. This code also uses MLFlow framework to automatically track experiments and log results in ./mlruns directory. 
+
+### 5. Adjust Training Parameters
+
+Modify configs/config.yaml to change training parameters including epochs, learning rate, batch size etc.
+
+### 📑 Citation 
+
+If you use this repository or dataset, please cite our work:
+
+```bibtex
+@article{hussain2025uavpathloss,
+  author={S. Hussain},
+  title={A Multi-Scale Feature Extraction and Fusion UNet for Pathloss Prediction in UAV-Assisted mmWave Radio Networks},
+  journal={IEEE Transactions on Wireless Communications},
+  year={2025},
+  note={Submitted, September 2025}
+}
+```
+
+### 📬 Contact 
+
+For questions or collaborations, feel free to reach out:
+📧 Sajjad Hussain sajjad.hussain2@seecs.edu.pk
+
+### ⭐ Acknowledgements 
+
+- TensorFlow/Keras for deep learning.
+
+- MLflow for experiment tracking.
+
+- Google Drive for dataset hosting.
+
+
