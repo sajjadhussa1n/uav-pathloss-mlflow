@@ -157,7 +157,7 @@ If you use this repository or dataset, please cite our work:
   note={Submitted, September 2025}
 }
 ```
-
+---
 
 ### 📬 Contact 
 
@@ -165,6 +165,7 @@ For questions or collaborations, feel free to reach out:
 
 - 📧 [Sajjad Hussain](https://github.com/sajjadhussa1n) sajjad.hussain2@seecs.edu.pk
 
+---
 
 ### ⭐ Acknowledgements 
 
