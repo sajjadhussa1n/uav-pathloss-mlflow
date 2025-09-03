@@ -9,7 +9,7 @@ It includes:
 
 ---
 
-## 📖 Overview
+## Overview
 
 Accurate pathloss prediction is critical for UAV-assisted wireless communication systems.  
 We propose a **UNet-based architecture with multi-scale feature fusion (MSFF-UNet)** to predict pathloss using 3D geometry, line-of-sight (LOS) masks, and building layout information.  
@@ -20,7 +20,7 @@ We propose a **UNet-based architecture with multi-scale feature fusion (MSFF-UNe
 
 ---
 
-## 📂 Dataset
+## Dataset
 
 - The dataset is made publicly available via **Google Drive**.  
 - It contains pre-processed CSV files for **training** and **testing**, ready to be loaded by our dataset class.  
@@ -29,7 +29,7 @@ To download automatically, see instructions below.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 You can run the pipeline either:
 - On **Google Colab** (quick start, recommended for testing), or
@@ -42,3 +42,7 @@ You can run the pipeline either:
 ```bash
 git clone https://github.com/sajjadhussa1n/uav-pathloss-mlflow.git
 cd uav-pathloss-mlflow
+```
+### 2. Download Dataset and Pre-trained Weights
+
+We use gdown to fetch public Google Drive folders.
