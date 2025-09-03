@@ -51,7 +51,7 @@ The dataset used in this research and the best model weights are publicly availa
 !pip install gdown
 ```
 
-Download the dataset in the **./dataset** directory. It is also recommended to download the dataset manually from this link in case the following bash commands to automatically download it fail. 
+Download the dataset in the `./dataset` directory. It is also recommended to download the dataset manually from this link in case the following bash commands fail. 
 
 ```bash
 # Dataset Folder ID
@@ -62,7 +62,7 @@ target_dir="./dataset"
 !gdown --folder https://drive.google.com/drive/folders/$folder_id -O $target_dir
 ```
 
-Download the pre-trained model weights in the **./artifacts** directory. Again, you can manually download the pre-trained model weights from this link here.
+Download the pre-trained model weights in the `./artifacts` directory. Again, you can manually download the pre-trained model weights from this link here.
 
 ```bash
 # Pretrained weights Folder ID
