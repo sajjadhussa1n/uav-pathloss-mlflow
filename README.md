@@ -51,7 +51,7 @@ The dataset used in this research and the best model weights are publicly availa
 !pip install gdown
 ```
 
-Download the dataset in the `./dataset` directory. It is also recommended to download the dataset manually from this link in case the following bash commands fail. 
+Download the dataset in the `./dataset` directory. It is also recommended to download the dataset manually from this [link](https://drive.google.com/drive/folders/1ooH4jxP_qk3OriNYzt8vPr-waYiR6qy0?usp=sharing) in case the following bash commands fail. 
 
 ```bash
 # Dataset Folder ID
@@ -62,7 +62,7 @@ target_dir="./dataset"
 !gdown --folder https://drive.google.com/drive/folders/$folder_id -O $target_dir
 ```
 
-Download the pre-trained model weights in the `./artifacts` directory. Again, you can manually download the pre-trained model weights from this link here.
+Download the pre-trained model weights in the `./artifacts` directory. Again, you can manually download the pre-trained model weights from this [link](https://drive.google.com/drive/folders/1g7PgvSqooMttOzmRsplTDocRMLeKdOZS?usp=sharing).
 
 ```bash
 # Pretrained weights Folder ID
@@ -110,10 +110,13 @@ If you use this repository or dataset, please cite our work:
 }
 ```
 
+
 ### 📬 Contact 
 
 For questions or collaborations, feel free to reach out:
-📧 Sajjad Hussain sajjad.hussain2@seecs.edu.pk
+
+- 📧 [Sajjad Hussain](https://github.com/sajjadhussa1n) sajjad.hussain2@seecs.edu.pk
+
 
 ### ⭐ Acknowledgements 
 
