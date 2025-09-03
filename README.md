@@ -144,6 +144,8 @@ This script will automatically create the model instance, prepare train and test
 
 Modify configs/config.yaml to change training parameters including epochs, learning rate, batch size etc.
 
+---
+
 ### 📑 Citation 
 
 If you use this repository or dataset, please cite our work:
