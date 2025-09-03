@@ -27,6 +27,55 @@ We propose a **UNet-based architecture with multi-scale feature fusion (MSFF-UNe
 
 To download automatically, see instructions below.  
 
+### Overview
+This dataset contains UAV-assisted mmWave path loss simulated across **five diverse urban environments**:
+- Munich-01
+- Munich-02
+- Helsinki
+- Manhattan
+- London
+
+For each environment, ray-traced simulations were performed at:
+- **4 UAV transmitter (TX) locations**
+- **3 UAV altitudes**: 25m, 35m, and 45m
+
+Each CSV file corresponds to a unique combination of environment, TX location, and altitude.
+
+---
+
+### File Naming Convention
+Files follow the format:
+
+averaged_path_loss_dataset_{CITY}_tx_loc_{NUMBER}{ALTITUDE_CODE}
+
+
+- **CITY**: {munich01, munich02, helsinki, manhattan, london}  
+- **NUMBER**: {1, 2, 3, 4} → TX location index  
+- **ALTITUDE_CODE**:  
+  - a = 25m altitude  
+  - b = 35m altitude  
+  - c = 45m altitude  
+
+**Example**:  
+`averaged_path_loss_dataset_london_tx_loc_1a` → London, TX Location 1, altitude 25m
+
+---
+
+### Dataset Columns
+Each CSV file contains the following columns:
+
+- `RX_X` : Receiver X-coordinate (meters)  
+- `RX_Y` : Receiver Y-coordinate (meters)  
+- `TX_X` : Transmitter X-coordinate (meters)  
+- `TX_Y` : Transmitter Y-coordinate (meters)  
+- `TX_Z` : Transmitter altitude (meters)  
+- `Phi` : Azimuth angle between TX and RX (degrees)  
+- `Distance_3d` : 3D distance between TX and RX (meters)  
+- `LOS_mask` : Line-of-sight indicator (1 = LOS, 0 = NLOS)  
+- `Is_building` : Building penetration indicator (1 = RX inside building, 0 = outdoors)  
+- `Path_loss` : Averaged path loss (dB)  
+
+
 ---
 
 ## Getting Started
