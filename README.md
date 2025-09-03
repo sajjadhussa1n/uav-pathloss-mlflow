@@ -41,7 +41,6 @@ For each environment, ray-traced simulations were performed at:
 
 Each CSV file corresponds to a unique combination of environment, TX location, and altitude.
 
----
 
 ### File Naming Convention
 Files follow the format:
@@ -59,7 +58,6 @@ averaged_path_loss_dataset_{CITY}_tx_loc_{NUMBER}{ALTITUDE_CODE}
 **Example**:  
 `averaged_path_loss_dataset_london_tx_loc_1a` → London, TX Location 1, altitude 25m
 
----
 
 ### Dataset Columns
 Each CSV file contains the following columns:
@@ -77,6 +75,7 @@ Each CSV file contains the following columns:
 
 
 ---
+
 
 ## Getting Started
 
