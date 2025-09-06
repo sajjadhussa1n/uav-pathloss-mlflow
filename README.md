@@ -161,6 +161,21 @@ If you use this repository or dataset, please cite our work:
 ```
 ---
 
+## 📜 License  
+
+This repository is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.  
+
+You are free to:  
+- **Share** — copy and redistribute the material in any medium or format  
+- **Adapt** — remix, transform, and build upon the material  
+
+**Under the following terms:**  
+- **Attribution** — You must give appropriate credit.  
+- **NonCommercial** — You may not use the material for commercial purposes.  
+
+➡️ See the full license text in the [LICENSE](./LICENSE) file.
+---
+
 ### 📬 Contact 
 
 For questions or collaborations, feel free to reach out:
